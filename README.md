@@ -1,7 +1,7 @@
 # CARES - A Corpus of Anonymised Radiological Evidences in Spanish
 
-This repository contain data, code and the fine-tuned models for the paper in which we present **CARES - a Corpus of Anonymised Radiological Evidences in Spanish**. 
-CARES is a high-quality text resource manually labeled with ICD-10 codes and reviewed by radiologists. These types of resources are essential for developing automatic text classification tools as they are necessary for training and fine-tuning our computational systems.
+This repository contains code to reproduce the experiments described in the paper **CARES: A Corpus for Classification of Spanish Radiological Reports**. 
+CARES is a high-quality text resource manually labeled with ICD-10 codes and reviewed by radiologists. These types of resources are essential for developing automatic text classification tools as they are necessary for training and fine-tuning our computational systems. The dataset is available on [HuggingFace hub](//huggingface.co/datasets/chizhikchi/CARES)
 
 ## Corpus description and statistics 
 The CARES corpus has been manually annotated using the ICD-10 ontology, which stands for for the 10th version of the International Classification of Diseases. For each radiological report, a **minimum of one code** and a **maximum of 9 codes** were assigned, while the average number of codes per text is 2.15
@@ -14,7 +14,6 @@ The corpus was additionally preprocessed in order to make its format coherent wi
 
 The main objective of this repository is to favor the repropuctibility of the experiments descibed in the paper. These experementation focused at developing system to classify ach report with corresponding ICD-10 chapters. 
 For this purpose, we randomly split the corpus into train (70\%) and test (30\%) subsets where the former was used to fine-tune the models and the latter to evaluate them. 
-This data splits, alongside with the entire corpus, can be found in the [data](https://github.com/chizhikchi/CARES/tree/main/data) subfolder.
 
 The experimentation process consisted in fine-tuning three pre-trained transformer models:
 
@@ -76,7 +75,7 @@ pip install requirements.txt
 python main.py --model NAME OF THE MODEL --do train
 ```
 
-or just run testing on the fine-tuned models included in the [checkpoints](https://github.com/chizhikchi/CARES/tree/main/checkpoints) subfolder by running
+or just run testing on the fine-tuned models available on HuggingFace by running
 
 ```
 cd CARES
