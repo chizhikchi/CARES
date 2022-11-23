@@ -51,7 +51,7 @@ def compute_metrics(eval_pred):
     macro_recall = recall_score(y_true=labels, y_pred=preds, average='macro')
     micro_f1 = f1_score(y_true=labels, y_pred=preds, average='micro')
     macro_f1 = f1_score(y_true=labels, y_pred=preds, average='macro')
-    print('\n', classification_report(labels, preds, target_names=[str(i) for i in label_names]))
+    print('\n', classification_report(labels, preds, target_names=[str(i) for i in label_names], digits=4))
     return{
         'micro_precision': micro_precision,
         'macro_precision': macro_precision,

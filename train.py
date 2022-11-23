@@ -21,11 +21,11 @@ def train_model(checkpoint, hyperparameters):
     
     print(f'\n================== Starting training model {checkpoint} ==================')
     # activating the GPU 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    n_gpu = torch.cuda.device_count()
-    if n_gpu == 0:
-        raise SystemError('GPU device not found')
-    print('\nFound GPU at: {}'.format(torch.cuda.get_device_name(0)))
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # n_gpu = torch.cuda.device_count()
+    # if n_gpu == 0:
+    #     raise SystemError('GPU device not found')
+    # print('\nFound GPU at: {}'.format(torch.cuda.get_device_name(0)))
     
     # data pre-processing
     if checkpoint == 'PlanTL-GOB-ES/roberta-base-biomedical-es':
@@ -76,11 +76,11 @@ def test_model(checkpoint, hyperparameters):
     
     print(f'\n================== Starting evaluation of model {checkpoint} ==================')
     # activating the GPU 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    n_gpu = torch.cuda.device_count()
-    if n_gpu == 0:
-        raise SystemError('GPU device not found')
-    print('\nFound GPU at: {}'.format(torch.cuda.get_device_name(0)))
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # n_gpu = torch.cuda.device_count()
+    # if n_gpu == 0:
+    #     raise SystemError('GPU device not found')
+    # print('\nFound GPU at: {}'.format(torch.cuda.get_device_name(0)))
 
     # data preparation
     if checkpoint == 'chizhikchi/cares-roberta-clinical':
@@ -99,7 +99,7 @@ def test_model(checkpoint, hyperparameters):
     
     #initializing Trainer
     training_args = TrainingArguments(
-        output_dir=f'CARES/checkpoints/{checkpoint[7:14]}',
+        output_dir=f'CARES/checkpoints/{checkpoint[17:]}',
         learning_rate=hyperparameters['learning_rate'],
         per_device_train_batch_size=hyperparameters['per_device_train_batch_size'],
         per_device_eval_batch_size=hyperparameters['per_device_eval_batch_size'],
