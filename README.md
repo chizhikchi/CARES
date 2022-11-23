@@ -13,7 +13,7 @@ The corpus was additionally preprocessed in order to make its format coherent wi
 ## Text classification experiments 
 
 The main objective of this repository is to favor the repropuctibility of the experiments descibed in the paper. These experementation focused at developing system to classify ach report with corresponding ICD-10 chapters. 
-For this purpose, we randomly split the corpus into train (70\%) and test (30\%) subsets where the former was used to fine-tune the models and the latter to evaluate them. 
+For this purpose, we performed a stratified split of the corpus into train (70\%) and test (30\%) subsets where the former was used to fine-tune the models and the latter to evaluate them. 
 This data splits, alongside with the entire corpus, can be found in the [data](https://github.com/chizhikchi/CARES/tree/main/data) subfolder.
 
 The experimentation process consisted in fine-tuning three pre-trained transformer models:
@@ -41,30 +41,30 @@ The table below summarises the results obtained by each developed system.
   </tr>
   <tr>
     <td> BETO </td>
-    <td> 0.8083 </td>
-    <td> 0.7673 </td>
-    <td> 0.7872 </td>
-    <td> 0.6340 </td>
-    <td> 0.5878 </td>
-    <td> 0.6029 </td>
+    <td> 0.8448 </td>
+    <td> 0.7654 </td>
+    <td> 0.7958 </td>
+    <td> 0.7604 </td>
+    <td> 0.6030 </td>
+    <td> 0.6553 </td>
   </tr>
   <tr>
     <td> BioBERT </td>
-    <td> 0.7340 </td>
-    <td> 0.6750 </td>
-    <td> 0.7032 </td>
-    <td> 0.6789 </td>
-    <td> 0.5658 </td>
-    <td> 0.6037 </td>
+    <td> 0.7404 </td>
+    <td> 0.6785 </td>
+    <td> 0.5742 </td>
+    <td> 0.7327 </td>
+    <td> 0.6920 </td>
+    <td> 0.7081 </td>
   </tr>
   <tr>
     <td> RoBERTa Biomedical </td>
-    <td> 0.8222 </td>
-    <td> 0.7938 </td>
-    <td><b> 0.8078 </b></td>
-    <td> 0.8354 </td>
-    <td> 0.6758 </td>
-    <td><b> 0.7224 </b></td>
+    <td> 0.8448 </td>
+    <td> 0.7964 </td>
+    <td><b> 0.8199 </b></td>
+    <td> 0.8305 </td>
+    <td> 0.6920 </td>
+    <td><b> 0.7344 </b></td>
   </tr>
 </table>
 
@@ -81,7 +81,7 @@ or just run testing on the fine-tuned models included in the [checkpoints](https
 ```
 cd CARES
 pip install requirements.txt
-python main.py --model NAME OF THE MODEL --do train
+python main.py --model NAME OF THE MODEL --do test
 ```
 
 Note that you must select the model to train or test among the following options: **bio-bert-spanish**, **roberta-biomedical-clinical**, **bert-base-spanish**.

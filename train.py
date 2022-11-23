@@ -17,17 +17,17 @@ from utils import (
     compute_metrics
 )
 
-def train_model(checkpoint, learning_rate, batch_size):
+def train_model(checkpoint, hyperparameters):
     
     print(f'\n================== Starting training model {checkpoint} ==================')
     # activating the GPU 
-    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    # n_gpu = torch.cuda.device_count()
-    # if n_gpu == 0:
-    #     raise SystemError('GPU device not found')
-    # print('\nFound GPU at: {}'.format(torch.cuda.get_device_name(0)))
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    n_gpu = torch.cuda.device_count()
+    if n_gpu == 0:
+        raise SystemError('GPU device not found')
+    print('\nFound GPU at: {}'.format(torch.cuda.get_device_name(0)))
     
-    #data pre-processing
+    # data pre-processing
     if checkpoint == 'PlanTL-GOB-ES/roberta-base-biomedical-es':
         tokenizer = RobertaTokenizerFast.from_pretrained(checkpoint)
         steps = 71
@@ -42,12 +42,14 @@ def train_model(checkpoint, learning_rate, batch_size):
     model.config.problem_type = 'multi_label_classification'
 
     training_args = TrainingArguments(
-        output_dir = f'./CARES/checkpoints/{checkpoint[36:44]}',
-        num_train_epochs=100,
-        learning_rate=learning_rate,
-        per_device_train_batch_size=batch_size,
-        per_device_eval_batch_size=batch_size,
-        seed=327,
+        output_dir=f'CARES/checkpoints/{checkpoint[7:14]}',
+        learning_rate=hyperparameters['learning_rate'],
+        per_device_train_batch_size=hyperparameters['per_device_train_batch_size'],
+        per_device_eval_batch_size=hyperparameters['per_device_eval_batch_size'],
+        seed=hyperparameters['seed'],
+        weight_decay=hyperparameters['weight_decay'],
+        adam_epsilon=hyperparameters['adam_epsilon'],
+        warmup_steps=hyperparameters['warmup_steps'],
         evaluation_strategy='steps',
         eval_steps=steps,
         save_steps=steps,
@@ -70,7 +72,7 @@ def train_model(checkpoint, learning_rate, batch_size):
 
     t.train()
 
-def test_model(checkpoint, learning_rate, batch_size):
+def test_model(checkpoint, hyperparameters):
     
     print(f'\n================== Starting evaluation of model {checkpoint} ==================')
     # activating the GPU 
@@ -97,15 +99,18 @@ def test_model(checkpoint, learning_rate, batch_size):
     
     #initializing Trainer
     training_args = TrainingArguments(
-        output_dir='CARES/checkpoints',
-        learning_rate=learning_rate,
-        per_device_train_batch_size=batch_size,
-        per_device_eval_batch_size=batch_size,
-        seed=327,
+        output_dir=f'CARES/checkpoints/{checkpoint[7:14]}',
+        learning_rate=hyperparameters['learning_rate'],
+        per_device_train_batch_size=hyperparameters['per_device_train_batch_size'],
+        per_device_eval_batch_size=hyperparameters['per_device_eval_batch_size'],
+        seed=hyperparameters['seed'],
+        weight_decay=hyperparameters['weight_decay'],
+        adam_epsilon=hyperparameters['adam_epsilon'],
+        warmup_steps=hyperparameters['warmup_steps'],
         eval_steps=steps,
         save_steps=steps,
         save_total_limit=1,
-        disable_tqdm=True # set to False 
+        disable_tqdm=False # set to False if you don't want to see progress bars
     )
 
     t = Trainer(

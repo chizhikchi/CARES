@@ -22,15 +22,39 @@ if args.do == 'train':
     }
     checkpoint = checkpoints[args.model_name]
     if checkpoint == "mrojas/bio-bert-base-spanish-wwm-cased":
-        lr = 5e-5
-        bs = 16
+        hyperparameters = {
+            'num_train_epochs': 25,
+            'learning_rate': 4.181013432530947e-05, 
+            'seed': 321, 
+            'per_device_train_batch_size': 16, 
+            'per_device_eval_batch_size': 32, 
+            'weight_decay': 3.190500833235664e-11, 
+            'adam_epsilon': 1.241521755885265e-07, 
+            'warmup_steps': 236
+        }
     elif checkpoint == "dccuchile/bert-base-spanish-wwm-cased":
-        lr = 3e-5
-        bs = 16
+        hyperparameters = {
+            'num_train_epochs': 34,
+            'learning_rate': 4.862043671050906e-05, 
+            'seed': 322, 
+            'per_device_train_batch_size': 16, 
+            'per_device_eval_batch_size': 32, 
+            'weight_decay': 1.0026204622214607e-07, 
+            'adam_epsilon': 1.874740778707177e-08, 
+            'warmup_steps': 805
+        }
     elif checkpoint == "PlanTL-GOB-ES/roberta-base-biomedical-es":
-        lr = 5e-5 
-        bs = 32
-    train_model(checkpoint, learning_rate=lr, batch_size=bs)
+        hyperparameters = {
+            'num_train_epochs': 25,
+            'learning_rate': 4.181013432530947e-05, 
+            'seed': 321, 
+            'per_device_train_batch_size': 16, 
+            'per_device_eval_batch_size': 32, 
+            'weight_decay': 3.190500833235664e-11, 
+            'adam_epsilon': 1.241521755885265e-07, 
+            'warmup_steps': 236
+            } 
+    train_model(checkpoint, hyperparameters=hyperparameters)
         
 elif args.do == 'test':
     checkpoints = {
@@ -40,12 +64,36 @@ elif args.do == 'test':
     }
     checkpoint = checkpoints[args.model_name]
     if checkpoint == 'chizhikchi/cares-biobert-base':
-        lr = 5e-5
-        bs = 16
+        hyperparameters = {
+            'num_train_epochs': 25,
+            'learning_rate': 4.181013432530947e-05, 
+            'seed': 321, 
+            'per_device_train_batch_size': 16, 
+            'per_device_eval_batch_size': 32, 
+            'weight_decay': 3.190500833235664e-11, 
+            'adam_epsilon': 1.241521755885265e-07, 
+            'warmup_steps': 236
+        }
     elif checkpoint == 'chizhikchi/cares-bert-base':
-        lr = 3e-5
-        bs = 16
+        hyperparameters = {
+            'num_train_epochs': 34,
+            'learning_rate': 4.862043671050906e-05, 
+            'seed': 322, 
+            'per_device_train_batch_size': 16, 
+            'per_device_eval_batch_size': 32, 
+            'weight_decay': 1.0026204622214607e-07, 
+            'adam_epsilon': 1.874740778707177e-08, 
+            'warmup_steps': 805
+        }
     elif checkpoint == 'chizhikchi/cares-roberta-clinical':
-        lr = 5e-5 
-        bs = 32
-    test_model(checkpoint, learning_rate=lr, batch_size=bs)
+        hyperparameters = {
+            'num_train_epochs': 25,
+            'learning_rate': 4.181013432530947e-05, 
+            'seed': 321, 
+            'per_device_train_batch_size': 16, 
+            'per_device_eval_batch_size': 32, 
+            'weight_decay': 3.190500833235664e-11, 
+            'adam_epsilon': 1.241521755885265e-07, 
+            'warmup_steps': 236
+            } 
+    test_model(checkpoint, hyperparameters=hyperparameters)
