@@ -18,6 +18,7 @@ For this purpose, we performed a stratified split of the corpus into train (70\%
 The experimentation process consisted in fine-tuning three pre-trained transformer models:
 
 * [BETO](https://huggingface.co/dccuchile/bert-base-spanish-wwm-cased) - a general domain Spanish BERT model 
+* [RoBERTa-bne](https://huggingface.co/PlanTL-GOB-ES/roberta-base-bne) - a Spanish RoBERTa model considered SOTA in general domain Spanish NLP
 * [BioBERT-Spanish](https://github.com/plncmm/bio-bert-base-spanish-wwm-uncased.git) - BERT general model extended with domain-specific knowledge by fine-tuning over a Chilean clinical corpus.
 * [RoBERTa-biomedical-clinical](https://huggingface.co/PlanTL-GOB-ES/roberta-base-biomedical-clinical-es) - a RoBERTa-based model pretrained on a combination of biomedical and clinical corpora.
 
