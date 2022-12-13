@@ -3,6 +3,7 @@ import pandas as pd
 import ast
 from datasets import Dataset, load_dataset
 import torch
+import copy
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.metrics import (
@@ -11,7 +12,6 @@ from sklearn.metrics import (
     f1_score,
     classification_report
 )
-
 
 def tokenize_function(batch, tokenizer):
     return tokenizer(batch['full_text'], truncation=True)
@@ -27,12 +27,35 @@ def prepare_dataset(tokenizer):
     tokenized_dataset = dataset.map(
         lambda x: tokenize_function(x, tokenizer), 
         batched=True, 
-        remove_columns=['iddoc', 'id', 'full_text', 'icd10', 'general', 'corpus', 'chapters'])
+        remove_columns=['iddoc', 'id', 'full_text', 'icd10', 'general', 'area', 'chapters'])
     tokenized_dataset = tokenized_dataset.map(
         lambda sample: {'labels': [float(i) for i in sample['int_labels']]}, 
         remove_columns=['int_labels']
         )
     return tokenized_dataset
+
+def my_hp_space(trial):
+    return {
+        "learning_rate": trial.suggest_float("learning_rate", 3e-5, 5e-5, log=True),
+        # "num_train_epochs": trial.suggest_int("num_train_epochs", 30, 60),
+        "seed": trial.suggest_int("seed", 320, 327),
+        "per_device_train_batch_size": trial.suggest_categorical("per_device_train_batch_size", [16, 32]),
+        "per_device_eval_batch_size": trial.suggest_categorical("per_device_eval_batch_size", [16, 32]),
+        "weight_decay": trial.suggest_float("weight_decay", 1e-12, 1e-1, log=True),
+        "adam_epsilon": trial.suggest_float("adam_epsilon", 1e-10, 1e-6, log=True),
+        "warmup_steps": trial.suggest_int('warmup_steps', 0, 1000)
+    }
+
+def compute_objective(metrics):
+    metrics = copy.deepcopy(metrics)
+    macro_f1 = metrics.pop("eval_macro_f1", None)
+    loss = metrics.pop("eval_loss", None)
+    _ = metrics.pop("epoch", None)
+    # Remove speed metrics
+    speed_metrics = [m for m in metrics.keys() if m.endswith("_runtime") or m.endswith("_per_second")]
+    for sm in speed_metrics:
+        _ = metrics.pop(sm, None)
+    return loss if len(metrics) == 0 else macro_f1
 
 def compute_metrics(eval_pred):
     """Computes metrics during evaluation.
