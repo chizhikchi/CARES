@@ -139,14 +139,3 @@ elif args.do == 'test':
             'warmup_steps': 125
             }
     test_model(checkpoint, hyperparameters=hyperparameters)
-
-test_model('chizhikchi/cares-roberta-bne', hyperparameters={
-            'num_train_epochs': 50,
-            'learning_rate': 3.0290898801655698e-05, 
-            'seed': 320, 
-            'per_device_train_batch_size': 32, 
-            'per_device_eval_batch_size': 16, 
-            'weight_decay': 4.5126980713116176e-08, 
-            'adam_epsilon': 6.447418463180699e-08, 
-            'warmup_steps': 125
-            })

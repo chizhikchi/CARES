@@ -175,7 +175,6 @@ def test_model(checkpoint, hyperparameters):
     model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=len(test_dataset['labels'][0]))
     model.config.problem_type = 'multi_label_classification'
     
-    print("Model and datasets ready")
     #initializing Trainer
     training_args = TrainingArguments(
         output_dir=f'CARES/checkpoints/{checkpoint[17:]}',
