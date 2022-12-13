@@ -40,34 +40,50 @@ The table below summarises the results obtained by each developed system.
   </tr>
   <tr>
     <td> BETO </td>
-    <td> 0.8448 </td>
-    <td> 0.7654 </td>
-    <td> 0.7958 </td>
-    <td> 0.7604 </td>
-    <td> 0.6030 </td>
-    <td> 0.6553 </td>
+    <td> 0.8687 </td>
+    <td> 0.8464 </td>
+    <td> 0.8574 </td>
+    <td> 0.8673 </td>
+    <td> 0.7975 </td>
+    <td> 0.8250 </td>
+  </tr>
+    <tr>
+    <td> RoBERTa-BNE </td>
+    <td> 0.9032 </td>
+    <td> 0.7937 </td>
+    <td> 0.8449 </td>
+    <td> 0.9303 </td>
+    <td> 0.6845 </td>
+    <td> 0.7673 </td>
   </tr>
   <tr>
     <td> BioBERT </td>
-    <td> 0.7404 </td>
-    <td> 0.6785 </td>
-    <td> 0.5742 </td>
-    <td> 0.7327 </td>
-    <td> 0.6920 </td>
-    <td> 0.7081 </td>
+    <td> 0.7813 </td>
+    <td> 0.7396 </td>
+    <td> 0.7599 </td>
+    <td> 0.8296 </td>
+    <td> 0.6817 </td>
+    <td> 0.7365 </td>
   </tr>
   <tr>
     <td> RoBERTa Biomedical </td>
-    <td> 0.8448 </td>
-    <td> 0.7964 </td>
-    <td><b> 0.8199 </b></td>
-    <td> 0.8305 </td>
-    <td> 0.6920 </td>
-    <td><b> 0.7344 </b></td>
+    <td> 0.8562 </td>
+    <td> 0.8794 </td>
+    <td><b> 0.8676 </b></td>
+    <td> 0.8740 </td>
+    <td> 0.8213 </td>
+    <td><b> 0.8328 </b></td>
   </tr>
 </table>
 
-You can either reproduce the whole fine-tuning process by running 
+You can reproduce the whole fine-tuning process with hyperparameter optimisation by running: 
+
+```
+cd CARES
+pip install requirements.txt
+python main.py --model NAME OF THE MODEL --do optimise
+```
+train models with the hyperparameters we selected in our experimentation by running:
 
 ```
 cd CARES
@@ -75,7 +91,7 @@ pip install requirements.txt
 python main.py --model NAME OF THE MODEL --do train
 ```
 
-or just run testing on the fine-tuned models available on HuggingFace by running
+or just run testing on the fine-tuned models available on HuggingFace by running:
 
 ```
 cd CARES
@@ -83,4 +99,4 @@ pip install requirements.txt
 python main.py --model NAME OF THE MODEL --do test
 ```
 
-Note that you must select the model to train or test among the following options: **bio-bert-spanish**, **roberta-biomedical-clinical**, **bert-base-spanish**.
+Note that you must select the model to train or test among the following options: **bio-bert-spanish**, **roberta-biomedical-clinical**, **bert-base-spanish**, **roberta-bne**.
